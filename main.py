@@ -2,6 +2,7 @@
 listOrder = {}
 listOrdername = {}
 listAddons = {}
+listAddonsName = {}
 listCost = {}
 
 def menuPaket():
@@ -17,8 +18,6 @@ def menuPaket():
     print("-"*107)
     print("|    [04]    |            Karawang - Pantai Samudra           |        5 Orang       |   Rp. 850.000      |")
     print("="*107)
-menuPaket()
-
 
 def menuAddons():
     print("\n                 L A Y A N A N  T A M B A H A N         "           )
@@ -30,9 +29,10 @@ def menuAddons():
     print("|    [B]        |        Penjemputan           |   Rp. 300.000      |")
     print("-"*69)
     print("|    [C]        |        Kuliner               |   Rp. 300.000      |")
-    print("="*69)
-menuAddons()
+    print("-"*69)
+    print("|    [D]        |        Tanpa Fasilitas       |   Rp. 0            |")
 
+    print("="*69)
 
 def order():
 
@@ -67,6 +67,7 @@ def order():
             listOrdername[name] = 'Karawang - Pantai Samudra'
         else :
             print("| Nama paket                          | : Cek kembali kode paket yang anda masukan ")
+            listOrdername[name] = "-"
     namaPaket()
 
     # menampilkan Tarif paket   
@@ -85,12 +86,12 @@ def order():
             print("| Tarif paket                         | : Rp. 850.000 ")
 
         else :
-            print("| Nama paket                         | : Cek kembali kode paket yang anda masukan ")
+            print("| Tarif paket                         | : Cek kembali kode paket yang anda masukan ")
     tarifPaket()
     
     # input kode tambahan
     print("-"*107)
-    addons = str(input("| Kode paket                          | : "))
+    addons = str(input("| Kode tambahan                       | : "))
     listAddons[name] = addons 
 
     # Menampilkan fasilitas 
@@ -99,15 +100,19 @@ def order():
         print("-"*107)
         if (addons == "A"):
             print("| Fasilitas                           | : Penginapan ")
-    
+            listAddonsName[name] = "Penginapan"
         elif (addons == "B"):
             print("| Fasilitas                           | : Penjemputan ")
-    
+            listAddonsName[name] = "Penjemputan"
         elif (addons == "C"):
             print("| Fasilitas                           | : Kuliner ")
-
+            listAddonsName[name] = "Kuliner"
+        elif (addons == "D"):
+            print("| Fasilitas                           | : - ")
+            listAddonsName[name] = "-"
         else:
             print("| Fasilitas                           | : Cek kembali kode paket yang anda masukan ")
+            listAddonsName[name] = "-"
     Addons()
 
     # Menampilkan tarif fasilitas 
@@ -122,6 +127,9 @@ def order():
     
         elif (addons == "C"):
             print("| Tarif tambahan                      | : Rp. 300.000 ")
+
+        elif (addons == "D"):
+            print("| Tarif tambahan                      | : Rp. 0 ")
 
         else:
             print("| Fasilitas                           | : Cek kembali kode paket yang anda masukan ")
@@ -138,7 +146,7 @@ def order():
         packageCost = 500000
     elif (package == "03"):
         packageCost = 600000
-    elif (package == "01"):
+    elif (package == "04"):
         packageCost = 850000
     else:
         packageCost = 0
@@ -149,7 +157,7 @@ def order():
         addCost = 600000
     elif (addons == "B"):
         addCost = 300000
-    elif (addons == "c"):
+    elif (addons == "C"):
         addCost = 300000
     else:
         addCost = 0
@@ -168,25 +176,105 @@ def order():
 
     listCost[name] = int(packageCost+addCost+(packageCost+addCost)*11/100)
 
-order()
-print(listOrder)
-print(listAddons)
-print(listCost)
+def ShowData():
+    keyListOrder = list(listOrder.keys()) # Mengubah dictionary jadi list
 
-def listpeserta():
-    keyListOrder = list(listOrder.keys())
-    itemlistOrdername = list(listOrdername.items())
-    print("="*107)
-    print("| NO. | Nama Peserta          | Nama Paket                        |    Fasilitas tambahan   |      Jumlah tarif     |")
+    print("\n")
+    print("="*135)
+    print("| NO. | Nama Peserta          | Nama Paket                                            | Fasilitas tambahan    | Jumlah tarif          |")
+    print("="*135)
 
     for x in range(len(keyListOrder)):
+        # No
         print("|",x+1,end='')
         print(" "*(4-len(str(x+2))),end='')
+
+        # Nama peserta
         print("|",keyListOrder[x],end='')
         print(" "*(22-len(keyListOrder[x])),end='')
-        print("|",listOrdername[keyListOrder[x]])
 
-         
+        # Nama paket
+        print("|",listOrdername[keyListOrder[x]],end='')
+        print(" "*(54-len(listOrdername[keyListOrder[x]])),end='')
 
-listpeserta()
+        # Penginapan
+        print("|",listAddonsName[keyListOrder[x]],end='')
+        print(" "*(22-len(listAddonsName[keyListOrder[x]])),end='')
+
+        # Jumlah tarif
+        print("| Rp.",listCost[keyListOrder[x]],end='')
+        print(" "*(17-len(str(listCost[keyListOrder[x]]))),'|')
+
+        print("="*135)
+
+def searchData():
+    keyListOrder = list(listOrder.keys()) # Mengubah dictionary jadi list
+
+    inputan = str(input("Nama Pelanggan : "))
+    x = keyListOrder.index(inputan)
+
+    print("\n")
+    print("="*135)
+    print("| NO. | Nama Peserta          | Nama Paket                                            | Fasilitas tambahan    | Jumlah tarif          |")
+    print("="*135)
+
+    
+    # No
+    print("|",x+1,end='')
+    print(" "*(4-len(str(x+2))),end='')
+    # Nama peserta
+    print("|",keyListOrder[x],end='')
+    print(" "*(22-len(keyListOrder[x])),end='')
+    # Nama paket
+    print("|",listOrdername[keyListOrder[x]],end='')
+    print(" "*(54-len(listOrdername[keyListOrder[x]])),end='')
+    # Penginapan
+    print("|",listAddonsName[keyListOrder[x]],end='')
+    print(" "*(22-len(listAddonsName[keyListOrder[x]])),end='')
+    # Jumlah tarif
+    print("| Rp.",listCost[keyListOrder[x]],end='')
+    print(" "*(17-len(str(listCost[keyListOrder[x]]))),'|')
+    print("="*135)
+
+
+#fungsi untuk menampilkan menu
+def show_menu():
+    print ("\n")
+    print ("===================== MENU ===================")
+    print ("| [1] Show Daftar paket & Fasilitas tambahan |")
+    print ("| [2] Show Data                              |")
+    print ("| [3] Insert Data                            |")
+    print ("| [4] Edit Data                              |")
+    print ("| [5] Delete Data                            |")
+    print ("| [6] Exit                                   |")
+    print ("| [7] Search Data                            |")
+    print ("==============================================")
+    
+    menu = int(input("\nPILIH MENU> "))
+    
+    if menu == 1:
+        menuPaket()
+        menuAddons()
+    elif menu == 2:
+        ShowData()
+    elif menu == 3:
+        order()
+    elif menu == 4:
+        edit_data() # belum  di buat
+    elif menu == 5:
+        delete_data() # belum di buat
+    elif menu == 6:
+        exit()
+    elif menu == 7:
+        searchData()
+    else:
+        print("Salah pilih!")
+        
+if __name__ == "__main__":
+    
+    while(True):
+        show_menu()
+
+
+
 
