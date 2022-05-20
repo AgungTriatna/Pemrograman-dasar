@@ -13,33 +13,35 @@ listJumlahTarif = []
 listPPN =[]
 listJumlahBiaya = []
 temporary = {}
+simbol = "!@#$%^&*|\\{[}]':;<>~`? "
 
 def menuPaket():
-    print("\n                                  P A K E T   W I S A T A   K A R A W A N G  "                            )
-    print("="*107)
-    print("| Kode Paket |                  Rute perjalanan               |    Minimum Peserta   |       Tarif        |")
-    print("="*107)
-    print("|    [01]    |              Karawang - Pantai Pakis           |        6 Orang       |   Rp. 1.000.000    |")
-    print("-"*107)
-    print("|    [02]    | Karawang - Curug Cigentis - Gunung Sanggabuana |        6 Orang       |   Rp. 500.000      |")
-    print("-"*107)
-    print("|    [03]    |              Karawang - Candi Jiwa             |        4 Orang       |   Rp. 600.000      |")
-    print("-"*107)
-    print("|    [04]    |            Karawang - Pantai Samudra           |        5 Orang       |   Rp. 850.000      |")
-    print("="*107)
+    print("""\n                      
+                                P A K E T   W I S A T A   K A R A W A N G                              
+===========================================================================================================
+| Kode Paket |                  Rute perjalanan               |    Minimum Peserta   |       Tarif        |
+-----------------------------------------------------------------------------------------------------------
+|    [01]    |              Karawang - Pantai Pakis           |        6 Orang       |   Rp. 1.000.000    |
+-----------------------------------------------------------------------------------------------------------
+|    [02]    | Karawang - Curug Cigentis - Gunung Sanggabuana |        6 Orang       |   Rp. 500.000      |
+-----------------------------------------------------------------------------------------------------------
+|    [03]    |              Karawang - Candi Jiwa             |        4 Orang       |   Rp. 600.000      |
+-----------------------------------------------------------------------------------------------------------
+|    [04]    |            Karawang - Pantai Samudra           |        5 Orang       |   Rp. 850.000      |
+===========================================================================================================""")
 
 def menuAddons():
-    print("\n                 L A Y A N A N  T A M B A H A N         "           )
-    print("="*69)
-    print("| Kode Tambahan |        Fasilitas             |       Tarif        |")
-    print("="*69)
-    print("|    [A]        |        Penginapan            |   Rp. 600.000      |")
-    print("-"*69)
-    print("|    [B]        |        Penjemputan           |   Rp. 300.000      |")
-    print("-"*69)
-    print("|    [C]        |        Kuliner               |   Rp. 300.000      |")
-    print("="*69)
-    print("\n")
+    print("""\n                 
+                    L A Y A N A N  T A M B A H A N         
+=====================================================================
+| Kode Tambahan |        Fasilitas             |       Tarif        |
+=====================================================================
+|    [A]        |        Penginapan            |   Rp. 600.000      |
+---------------------------------------------------------------------
+|    [B]        |        Penjemputan           |   Rp. 300.000      |
+---------------------------------------------------------------------
+|    [C]        |        Kuliner               |   Rp. 300.000      |
+=====================================================================\n""")
 
 def header():
     print("\n")
@@ -50,43 +52,44 @@ def header():
     print("="*107)
 
 def inputnama():
+
     nama = str(input("| Nama Peserta                        | : "))
     
-    if(len(nama)>0):
-        listNamaPeserta.append(nama)
-    else:
+    if(nama in simbol):
         print("-"*107)
-        print("| Nama Peserta                        | : Nama tidak boleh kosong, isi kembali nama")
+        print("| Nama Peserta                        | : Nama tidak boleh kosong dan berisi simbol, isi kembali nama")
         print("-"*107)
         inputnama()
+    else:
+        temporary['nama'] = nama
         
 
 def inputKodePaket():
     print("-"*107)
     paket = str(input("| Kode paket                          | : "))
-    listKodePaket.append(paket)
+    temporary['kodepaket'] = paket
     print("-"*107)
-    temporary['paket'] = paket
     showNamaPaket()
     showTarifPaket()
 
 def showNamaPaket():
-    paket = temporary['paket']
-    if (paket == "01"):
+    paket = temporary['kodepaket']
+    if (paket == "01" or paket == "1"):
         print("| Nama paket                          | : Karawang - Pantai Pakis ")
-        listNamaPaket.append('Karawang - Pantai Pakis')
+        temporary['namapaket'] = 'Karawang - Pantai Pakis'
         print("-"*107)
-    elif (paket == "02"):
+    elif (paket == "02" or paket == '2'):
         print("| Nama paket                          | : Karawang - Curug Cigentis - Gunung Sanggabuana ")
-        listNamaPaket.append('Karawang - Curug Cigentis - Gunung Sanggabuana')
+        temporary['namapaket'] = 'Karawang - Curug Cigentis - Gunung Sanggabuana'
         print("-"*107)
-    elif (paket == "03"):
+    elif (paket == "03" or paket == '3'):
         print("| Nama paket                          | : Karawang - Candi Jiwa ")
         print("-"*107)
-        listNamaPaket.append('Karawang - Candi Jiwa')
-    elif (paket == "04"):
+        temporary['namapaket'] = 'Karawang - Candi Jiwa'
+        print("-"*107)
+    elif (paket == "04" or paket == '4'):
         print("| Nama paket                          | : Karawang - Pantai Samudra ")
-        listNamaPaket.append('Karawang - Pantai Samudra')
+        temporary['namapaket'] = 'Karawang - Pantai Samudra'
         print("-"*107)
     else :
         print("| Nama paket                          | : Kode yang anda masukan salah, silakan masukan kode lagi ")
@@ -94,195 +97,252 @@ def showNamaPaket():
 
 def showTarifPaket():
 
-    paket = temporary['paket']
+    paket = temporary['kodepaket']
 
-    if (paket == "01"):
+    if (paket == "01" or paket == '1'):
         print("| Tarif paket                         | : Rp. 1.000.000 ")
         print("-"*107)
-        listTarifpaket.append(1000000)
-        temporary["cost"] = int(1000000)
-    elif (paket == "02"):
+        temporary['tarifpaket'] = int(1000000)
+        
+    elif (paket == "02" or paket == '2'):
         print("| Tarif paket                         | : Rp. 500.000 ")
         print("-"*107)
-        listTarifpaket.append(500000)
-        temporary["cost"] = int(500000)
-    elif (paket == "03"):
+        temporary["tarifpaket"] = int(500000)
+
+    elif (paket == "03" or paket == '3'):
         print("| Tarif paket                         | : Rp. 600.000 ")
         print("-"*107)
-        listTarifpaket.append(600000)
-        temporary["cost"] = int(600000)
-    elif (paket == "04"):
+        temporary["tarifpaket"] = int(600000)
+
+    elif (paket == "04" or paket == '4'):
         print("| Tarif paket                         | : Rp. 850.000 ")
         print("-"*107)
-        listTarifpaket.append(850000)
-        temporary["cost"] = int(850000)
+        temporary["tarifpaket"] = int(850000)
+
     else :
         print("| Tarif paket                         | : Cek kembali kode paket yang anda masukan ")
         print("-"*107)
-        listTarifpaket.append(0)
-        temporary["cost"] = int(0)
+        temporary["tarifpaket"] = int(0)
 
 def inputFasilitas():
     question = str(input("\nFasilitas tambahan ? (y/n) : "))
-    paket = temporary['paket']
+    paket = temporary['kodepaket']
 
-    if(question=='y' or question=='Y'):
+    try:
 
-        # Menambahkan fasilitas
-        menuAddons()
-        print("-"*107)
-        kodeTambahan = str(input("| Kode tambahan                       | : "))
-        listKodeTambahan.append(kodeTambahan)
-        print("-"*107)
+        if(question=='y' or question=='Y'):
 
-        # Menampilkan Fasilitas
-
-        if (kodeTambahan == "A" or kodeTambahan=="a"):
-            print("| Fasilitas                           | : Penginapan ")
-            listFasilitas.append("Penginapan")
+            # Menambahkan fasilitas
+            menuAddons()
             print("-"*107)
-        elif (kodeTambahan == "B" or kodeTambahan=="b"):
-            print("| Fasilitas                           | : Penjemputan ")
-            listFasilitas.append("Penjemputan")
+            kodeTambahan = str(input("| Kode tambahan                       | : "))
+            temporary['kodetambahan'] = kodeTambahan
             print("-"*107)
-        elif (kodeTambahan == "C" or kodeTambahan=="c"):
-            print("| Fasilitas                           | : Kuliner ")
-            listFasilitas.append("Kuliner")
+
+            # Menampilkan Fasilitas
+
+            if (kodeTambahan == "A" or kodeTambahan == "a"):
+                print("| Fasilitas                           | : Penginapan ")
+                temporary['fasilitas'] = "Penginapan"
+                print("-"*107)
+            elif (kodeTambahan == "B" or kodeTambahan == "b"):
+                print("| Fasilitas                           | : Penjemputan ")
+                temporary['fasilitas'] = "Penjemputan"
+                print("-"*107)
+            elif (kodeTambahan == "C" or kodeTambahan == "c"):
+                print("| Fasilitas                           | : Kuliner ")
+                temporary['fasilitas'] = "Kuliner"
+                print("-"*107)
+            else:
+                print("| Kode tambahan                       | : -")
+                print("-"*107)
+                temporary['fasilitas'] = "-"
+
+            # Menampilkan tarif fasilitas
+            
+            hitungtariffasilitas()
+
+            # Hitung jumlah tarif
+            
+            hitungjumlahtarif()
+            
+
+            # menampilkan ppn 11 %
+            
+            hitungppn()
+
+            # menampilkan jumlah biaya
+            hitungjumlahbiaya()
+
+            # os.system('cls')
+
+            showDetail()
+
+        elif(question=='n' or question == 'N'):
+
+            # Menambahkan fasilitas kosong
+
             print("-"*107)
-        else:
-            print("| Kode tambahan                       | : -")
+            print(("| Kode tambahan                       | : - "))
+            temporary['kodetambahan'] = '-'
             print("-"*107)
-            listFasilitas.append("-")
 
-        # Menampilkan tarif fasilitas
+            # Tampilkan fasilitas kosong
+            print("| Fasilitas                           | : -")
+            temporary['fasilitas'] = '-'
 
-        if (kodeTambahan == "A" or kodeTambahan == "a"):
-            print("| Tarif tambahan                      | : Rp. 600.000 ")
-            listTarifTambahan.append(600000)
-    
-        elif (kodeTambahan == "B" or kodeTambahan == "b"):
-            print("| Tarif tambahan                      | : Rp. 300.000 ")
-            listTarifTambahan.append(300000)
-    
-        elif (kodeTambahan == "C" or kodeTambahan == "c"):
-            print("| Tarif tambahan                      | : Rp. 300.000 ")
-            listTarifTambahan.append(300000)
+            # Menampilkan tarif tambahan
+            print("-"*107)
+            print("| Tarif tambahan                      | : -")
+            temporary['tariftambahan'] = '-'
 
-        else:
-            print("| Fasilitas                           | : - ")
-            listTarifTambahan.append(0)
+            # Menampilkan tarif fasilitas
+            
+            hitungtariffasilitas()
 
+            # Hitung jumlah tarif
+            
+            hitungjumlahtarif()
+            
 
-        # Hitung jumlah tarif
+            # menampilkan ppn 11 %
+            
+            hitungppn()
 
-        print("-"*107)
+            # menampilkan jumlah biaya
+            hitungjumlahbiaya()
 
-        if (paket == "01"):
-            hargaPaket = 1000000
-        elif (paket == "02"):
-            hargaPaket = 500000
-        elif (paket == "03"):
-            hargaPaket = 600000
-        elif (paket == "04"):
-            hargaPaket = 850000
-        else:
-            hargaPaket = 0
+            # os.system('cls')
 
-        # Hitung harga Fasilitas tambahan
-
-        if (kodeTambahan == "A" or kodeTambahan == 'a'):
-            hargaTambahan = 600000
-        elif (kodeTambahan == "B" or kodeTambahan == 'b'):
-            hargaTambahan = 300000
-        elif (kodeTambahan == "C" or kodeTambahan == 'c'):
-            hargaTambahan = 300000
-        else:
-            hargaTambahan = 0
-
-        print("| Jumlah tarif                        | : Rp.",hargaPaket+hargaTambahan)
-        listJumlahTarif.append(int(hargaPaket+hargaTambahan))
-
-
-        # menampilkan ppn 11 %
-        print("-"*107)
-        print("| PPN 11%                             | : Rp.",int((hargaPaket+hargaTambahan)*11/100))
-        listPPN.append(int(hargaPaket+hargaTambahan)*11/100)
-
-        # menampilkan jumlah biaya
-        print("-"*107)
-        print("| Jumlah biaya                        | : Rp.",int(hargaPaket+hargaTambahan+(hargaPaket+hargaTambahan)*11/100))
-        print("="*107)
-
-        listJumlahBiaya.append(int(hargaPaket+hargaTambahan+(hargaPaket+hargaTambahan)*11/100))
-
-        showDetail()
-    
-    elif(question=='n' or question == 'N'):
-
+            showDetail()
+    except:
         # Menambahkan fasilitas kosong
 
-        print("-"*107)
-        print(("| Kode tambahan                       | : - "))
-        listKodeTambahan.append("-")
-        print("-"*107)
+            print("-"*107)
+            print(("| Kode tambahan                       | : - "))
+            listKodeTambahan.append("-")
+            print("-"*107)
 
-        # Tampilkan fasilitas kosong
-        print("| Fasilitas                           | : -")
-        listFasilitas.append("-")
+            # Tampilkan fasilitas kosong
+            print("| Fasilitas                           | : -")
+            listFasilitas.append("-")
 
-        # Menampilkan tarif tambahan
-        print("-"*107)
-        print("| Tarif tambahan                      | : -")
-        listTarifTambahan.append(0)
+            # Menampilkan tarif tambahan
+            print("-"*107)
+            print("| Tarif tambahan                      | : -")
+            listTarifTambahan.append(0)
 
-        # Menampilkan jumlah tarif 
-        print("-"*107)
-        print("| Jumlah tarif                        | : Rp.",temporary['cost'])
-        listJumlahTarif.append(int(temporary['cost']))
+            # Menampilkan jumlah tarif 
+            print("-"*107)
+            print("| Jumlah tarif                        | : Rp.",temporary['jumlahtarif'])
+            hitungjumlahtarif()
 
-        # menampilkan ppn 11 %
-        print("-"*107)
-        print("| PPN 11%                             | : Rp.",int(temporary["cost"]*11/100))
-        listPPN.append(int(temporary["cost"]*11/100))
-
-
-        # menampilkan jumlah biaya
-        print("-"*107)
-        print("| Jumlah biaya                        | : Rp.",int(temporary["cost"]+(temporary["cost"]*11/100)))
-        print("="*107)
-
-        listJumlahBiaya.append(int(temporary["cost"]+(temporary["cost"]*11/100)))
+            # menampilkan ppn 11 %
+            print("-"*107)
+            print("| PPN 11%                             | : Rp.",temporary['ppn'])
+            hitungppn()
 
 
-        os.system('cls')
+            # menampilkan jumlah biaya
+            print("-"*107)
+            print("| Jumlah biaya                        | : Rp.",temporary['jumlahbiaya'])
+            print("="*107)
 
-        showDetail()
+            
 
+
+            os.system('cls')
+
+            showDetail()
+
+def hitungtariffasilitas():
+
+    kodeTambahan = temporary['kodetambahan']
+
+    if (kodeTambahan == "A" or kodeTambahan == "a"):
+        print("| Tarif tambahan                      | : Rp. 600.000 ")
+        temporary['tariftambahan'] = int(600000)
+
+    elif (kodeTambahan == "B" or kodeTambahan == "b"):
+        print("| Tarif tambahan                      | : Rp. 300.000 ")
+        temporary['tariftambahan'] = int(300000)
+
+    elif (kodeTambahan == "C" or kodeTambahan == "c"):
+        print("| Tarif tambahan                      | : Rp. 300.000 ")
+        temporary['tariftambahan'] = int(300000)
+
+    else:
+        print("| Fasilitas                           | : - ")
+        temporary['tariftambahan'] = int(0)
+
+def hitungjumlahtarif():
+
+    jumlahtarif = temporary['tarifpaket'] + temporary['tariftambahan']
+    temporary['jumlahtarif'] = jumlahtarif
+
+def hitungppn():
+    ppn = int(11/100*temporary['jumlahtarif'])
+    temporary['ppn'] = ppn
+
+
+def hitungjumlahbiaya():
+
+    print("-"*107)
+    totalbiaya = int(temporary['tarifpaket'] + temporary['tariftambahan'] + temporary["ppn"])
+    # print("| Jumlah biaya                        | : Rp.",totalbiaya)
+    # print("="*107)
+
+    temporary['jumlahbiaya'] = totalbiaya
+
+def savedata():
+    
+    listNamaPeserta.append(temporary['nama'])
+    listKodePaket.append(temporary['kodepaket'])
+    listNamaPaket.append(temporary['namapaket'])
+    listTarifpaket.append(temporary['tarifpaket'])
+    listKodeTambahan.append(temporary['kodetambahan'])
+    listFasilitas.append(temporary['fasilitas'])
+    listTarifTambahan.append(temporary['tariftambahan'])
+    listJumlahTarif.append(temporary['jumlahtarif'])
+    listPPN.append(temporary['ppn'])
+    listJumlahBiaya.append(temporary['jumlahbiaya'])
+
+    
+   
 def showDetail():
     print("\n")
     print("="*107)
     print("D E T A I L  P E M B A Y A R A N".center(107))
     print("="*107)
-    print("| Nama Peserta                        | :",listNamaPeserta[-1])
+    print("| Nama Peserta                        | :",temporary['nama'])
     print("="*107)
-    print("| Kode paket                          | :",listKodePaket[-1])
+    print("| Kode paket                          | :",temporary['kodepaket'])
     print("="*107)
-    print("| Nama Paket                          | :",listNamaPaket[-1])
+    print("| Nama Paket                          | :",temporary['namapaket'])
     print("="*107)
-    print("| Tarif Paket                         | : Rp.",listTarifpaket[-1])
+    print("| Tarif Paket                         | : Rp.",temporary['tarifpaket'])
     print("="*107)
-    print("| Kode Tambahan                       | :",listKodeTambahan[-1])
+    print("| Kode Tambahan                       | :",temporary['kodetambahan'])
     print("="*107)
-    print("| Fasilitas                           | :",listFasilitas[-1])
+    print("| Fasilitas                           | :",temporary['fasilitas'])
     print("="*107)
-    print("| Tarif Tambahan                      | : Rp.",listTarifTambahan[-1])
+    print("| Tarif Tambahan                      | : Rp.",temporary['tariftambahan'])
     print("="*107)
-    print("| Jumlah Tarif                        | : Rp.",listJumlahTarif[-1])
+    print("| Jumlah Tarif                        | : Rp.",temporary['jumlahtarif'])
     print("="*107)
-    print("| PPN 11%                             | : Rp.",int(listPPN[-1]))
+    print("| PPN 11%                             | : Rp.",temporary['ppn'])
     print("="*107)
-    print("| Jumlah Biaya                        | : Rp.",listJumlahBiaya[-1])
+    print("| Jumlah Biaya                        | : Rp.",temporary['jumlahbiaya'])
     print("="*107)
+
+    question = str(input("\nSIMPAN DATA ? (Y/N) : "))
+    if(question=='Y' or question=='y'):
+        savedata()
+        print("Data berhasil disimpan")
+    elif(question=='N' or question=='n'):
+        show_menu()
+    else:
+        print("Data yang di masukan salah")
 
 def ShowData():
 
@@ -317,6 +377,7 @@ def ShowData():
             print(" "*(17-len(str(listJumlahBiaya[x]))),'|')
 
             print("="*135)
+
 
 def searchData():
     try:
